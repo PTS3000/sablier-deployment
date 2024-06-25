@@ -36,8 +36,10 @@ function parseSolidityFile(filePath) {
     const params = {};
 
     try {
-        // Extract the parameters using regex
-        params.sender = content.match(/params\.sender\s*=\s*(.*);/)[1].trim();
+        params.sender = account;
+        if (!ethers.utils.isAddress(params.sender)) {
+            throw new Error(`Invalid sender address: ${params.sender}`);
+        }
         console.log(`Found sender: ${params.sender}`);
         
         const recipientMatch = content.match(/params\.recipient\s*=\s*0x([0-9a-fA-F]+);/);
@@ -130,7 +132,7 @@ function createBatchFromFiles(files) {
 }
 
 // Directory containing Solidity files
-const solidityFilesDirectory = 'contracts/unlock_linear/';
+const solidityFilesDirectory = 'contracts/time_lock/';
 
 // Get list of all Solidity files in the directory
 const solidityFiles = fs.readdirSync(solidityFilesDirectory).filter(f => f.endsWith('.sol')).map(f => path.join(solidityFilesDirectory, f));
@@ -182,7 +184,11 @@ async function callCreateWithMilestones(batch, contract) {
             amount: segment.amount,
             exponent: segment.exponent,
             milestone: segment.milestone
-        }))
+        })),
+        broker: {
+            account: ethers.utils.getAddress(account), // Ensure this is set correctly
+            fee: ethers.utils.parseUnits('0', 'ether')
+        }
     }));
 
     // Build the transaction
