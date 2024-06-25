@@ -42,7 +42,7 @@
                         milestone: 1722466801 
                     });
                     params.segments[1] = LockupDynamic.Segment({
-                        amount: 2500, 
+                        amount: 2500e18, 
                         exponent: ud2x18(1e18),
                         milestone: 1722466802 
                         

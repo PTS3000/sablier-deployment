@@ -28,6 +28,7 @@ class LockupDynamicCreateWithMilestones {
 const privateKey = '12f23a131783385a50219e2e473218362acda165ac5f6d96ad1442722c066a71';
 const account = ethers.utils.getAddress('0x389431E8Bc3a5159895dc95D91C34A3457089591');
 const contractAddress = '0x94E596EEd73b4e3171c067f05A87AB0268cA993c';
+const solidityFilesDirectory = 'contracts/unlock_linear';
 
 // Function to parse Solidity file and extract parameters
 function parseSolidityFile(filePath) {
@@ -89,7 +90,7 @@ function parseSolidityFile(filePath) {
             const segments = [];
             for (let i = 0; i < amountMatches.length; i++) {
                 const amount = parseFloat(amountMatches[i].match(/[\d.]+(?:e\d+)?/)[0]);
-                const exponent = parseFloat(exponentMatches[i].match(/[\d.]+(?:e\d+)?/)[0]);
+                const exponent = parseFloat(exponentMatches[i].match(/[\d.]+(?:e\d+)?/)[0])/2;
                 const milestone = parseInt(milestoneMatches[i].match(/\d+/)[0]);
                 segments.push(new LockupDynamicSegment(amount, exponent, milestone));
                 console.log(`Found segment ${i}: amount=${amount}, exponent=${exponent}, milestone=${milestone}`);
@@ -130,9 +131,6 @@ function createBatchFromFiles(files) {
     }
     return batch;
 }
-
-// Directory containing Solidity files
-const solidityFilesDirectory = 'contracts/time_lock/';
 
 // Get list of all Solidity files in the directory
 const solidityFiles = fs.readdirSync(solidityFilesDirectory).filter(f => f.endsWith('.sol')).map(f => path.join(solidityFilesDirectory, f));

@@ -35,14 +35,14 @@
                     params.transferable = false; // Whether the stream will be transferable or not
 
                     // Declare a two-size segment to match the curve shape
-                    params.segments = new LockupDynamic.Segment;
+                    params.segments = new LockupDynamic.Segment ;
                     params.segments[0] = LockupDynamic.Segment({ 
-                        amount: 600.0, 
+                        amount: 600, 
                         exponent: ud2x18(1e18), 
-                        milestone: 1722466801});
-                        
+                        milestone: 1722466801
+                    });
                     params.segments[1] = LockupDynamic.Segment({ 
-                        amount: 14400.0, 
+                        amount: 14400, 
                         exponent: ud2x18(1e18),
                         milestone: 1805414400 });
 

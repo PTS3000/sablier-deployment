@@ -14,7 +14,7 @@
                     ISablierV2LockupDynamic(0x461E13056a3a3265CEF4c593F01b2e960755dE91);
 
                 function createStream_Timelock() external returns (uint256 streamId) {
-                    uint128 totalAmount = 2500;
+                    uint128 totalAmount = 500;
 
                     // Transfer the provided amount of TOKEN tokens to this contract
                     TOKEN.transferFrom(msg.sender, address(this), totalAmount);
@@ -27,7 +27,7 @@
 
                     // Declare the function parameters
                     params.sender = msg.sender; // The sender will be able to cancel the stream
-                    params.recipient = 0xD0dea0950ed2A66231f07cfa881398ED93f14C16; // The recipient of the streamed assets
+                    params.recipient = 0x03ae395d04D1dE1A34F1bF6Ef86Ac53D9b35D41a; // The recipient of the streamed assets
                     params.startTime = 1722466800; // Start time in Unix timestamp
                     params.totalAmount = totalAmount; // Total amount is the amount inclusive of all fees
                     params.asset = TOKEN; // The streaming asset
@@ -42,7 +42,7 @@
                         milestone: 1722466801 
                     });
                     params.segments[1] = LockupDynamic.Segment({
-                        amount: 2500, 
+                        amount: 500e18, 
                         exponent: ud2x18(1e18),
                         milestone: 1722466802 
                         

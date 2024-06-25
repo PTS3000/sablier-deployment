@@ -13,8 +13,8 @@
                 ISablierV2LockupDynamic public constant LOCKUP_DYNAMIC =
                     ISablierV2LockupDynamic(0x461E13056a3a3265CEF4c593F01b2e960755dE91);
 
-                function createStream_Timelock() external returns (uint256 streamId) {
-                    uint128 totalAmount = 2500;
+                function createStream_UnlockLinear() external returns (uint256 streamId) {
+                    uint128 totalAmount = 50000;
 
                     // Transfer the provided amount of TOKEN tokens to this contract
                     TOKEN.transferFrom(msg.sender, address(this), totalAmount);
@@ -35,18 +35,16 @@
                     params.transferable = false; // Whether the stream will be transferable or not
 
                     // Declare a two-size segment to match the curve shape
-                    params.segments = new LockupDynamic.Segment ;
-                    params.segments[0] = LockupDynamic.Segment({
-                        amount: 0, 
-                        exponent: ud2x18(1e18),
-                        milestone: 1722466801 
-                    });
-                    params.segments[1] = LockupDynamic.Segment({
-                        amount: 2500, 
-                        exponent: ud2x18(1e18),
-                        milestone: 1722466802 
+                    params.segments = new LockupDynamic.Segment;
+                    params.segments[0] = LockupDynamic.Segment({ 
+                        amount: 2000.0, 
+                        exponent: ud2x18(1e18), 
+                        milestone: 1722466801});
                         
-                    });
+                    params.segments[1] = LockupDynamic.Segment({ 
+                        amount: 48000.0, 
+                        exponent: ud2x18(1e18),
+                        milestone: 1805414400 });
 
                     // Create the LockupDynamic stream
                     streamId = LOCKUP_DYNAMIC.createWithMilestones(params);

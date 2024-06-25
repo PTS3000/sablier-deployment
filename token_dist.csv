@@ -1,0 +1,16 @@
+#,Allocation (Vesting) Category in Our Database,Allocation Main Category,Allocation Sub Category,Allocation on TGE,Cliff (Months),Vesting (Months),Source of the Distribution,Name of the Stream on Sablier,Cancelability,Transferability,Amount,Start Date,End Date,Initial Unlocked Amount,Cliff Date
+1,Summer Round,Summer Round,Summer Round,10%,0,9,Sablier,Unlock-Linear,Off,Off,, 1 August 2024, 28 April 2025,,N/A
+2,Fall Round,Fall Round,Fall Round,10%,0,18,Sablier,Unlock-Linear,Off,Off,, 1 August 2024, 23 January 2026,,N/A
+3,Winter Round,Winter Round,Winter Round,4%,0,16,Sablier,Unlock-Linear,Off,Off,, 1 August 2024, 24 November 2025,,N/A
+4,N/A (Only Sablier),Spring Round,Spring Round,15%,0,9,Sablier,Unlock-Linear,Off,Off,, 1 August 2024, 28 April 2025,,N/A
+5,N/A,Community Round,Community Round,25%,0,3,Sablier,Unlock-Linear,Off,Off,, 1 August 2024, 30 October 2024,,N/A
+6,Core Team,Core Team,Core Team,0%,12,25,Sablier,Cliff Stream,On,Off,, 1 August 2024, 16 August 2027,N/A, 27 July 2025
+7,Contributors,Contributors,Contributors,4%,0,32,Sablier,Unlock-Linear,?,Off,, 1 August 2024, 19 March 2027,,N/A
+8,N/A,Locked DAO Reserves,Locked DAO Reserves,50%,18,12,One Single Transaction,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+9,Ecosystem Incentives - 01,Ecosystem Incentives,ER 1 (Talent Tokens),4%,0,16,Sablier,Unlock-Linear,?,Off,, 1 August 2024, 24 November 2025,,N/A
+10,Ecosystem Incentives - 02,Ecosystem Incentives,ER 2 (Buy),100%,0,0,Sablier,Linear Stream,?,Off,, 1 August 2024, 1 August 2024,,N/A
+11,Ecosystem Incentives - 03,Ecosystem Incentives,ER 3 (Reward),TBD,TBD,TBD,Our Own Smart Contract,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+12,Ecosystem Incentives - 04,Ecosystem Incentives,ER 4 (CoinList),100%,0,0,Sablier,Linear Stream,?,Off,, 1 August 2024, 1 August 2024,,N/A
+13,N/A,Future Airdrops,Summer Airdrop,100%,0,0,Sablier,Linear Stream,?,Off,, 1 August 2024, 1 August 2024,,N/A
+14,N/A,Future Airdrops,Future Airdrops,N/A,N/A,N/A,Sablier,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+15,N/A,Liquidity,Liquidity,100%,0,0,More Than One Transactions,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
