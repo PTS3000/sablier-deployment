@@ -193,7 +193,7 @@ async function callCreateWithRange(batch, contract) {
             }
         );
 
-        txn.chainId = 8453;
+        txn.chainId = 84532;
 
         console.log("Transaction populated:", txn);
 
