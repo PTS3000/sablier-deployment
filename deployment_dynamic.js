@@ -4,6 +4,12 @@ const { ethers } = require('ethers');
 
 // Define the structure for Batch.CreateWithMilestones
 class LockupDynamicSegment {
+    /**
+     * Creates an instance of LockupDynamicSegment.
+     * @param {number} amount - The amount for the segment.
+     * @param {number} exponent - The exponent value.
+     * @param {number} milestone - The milestone time in Unix timestamp.
+     */
     constructor(amount, exponent, milestone) {
         this.amount = amount;
         this.exponent = exponent;
@@ -12,6 +18,18 @@ class LockupDynamicSegment {
 }
 
 class LockupDynamicCreateWithMilestones {
+    /**
+     * Creates an instance of LockupDynamicCreateWithMilestones.
+     * @param {string} sender - The address of the sender.
+     * @param {number} startTime - The start time in Unix timestamp.
+     * @param {boolean} cancelable - Whether the contract is cancelable.
+     * @param {boolean} transferable - Whether the contract is transferable.
+     * @param {string} recipient - The address of the recipient.
+     * @param {number} totalAmount - The total amount to be locked up.
+     * @param {string} asset - The address of the asset.
+     * @param {string} broker - The address of the broker.
+     * @param {Array<LockupDynamicSegment>} segments - The list of segments.
+     */
     constructor(sender, startTime, cancelable, transferable, recipient, totalAmount, asset, broker, segments) {
         this.sender = sender;
         this.startTime = startTime;
@@ -32,12 +50,17 @@ const solidityFilesDirectory = 'contracts/unlock_linear';
 
 // Function to parse Solidity file and extract parameters
 function parseSolidityFile(filePath) {
+    /**
+     * Parses a Solidity file to extract contract parameters.
+     * @param {string} filePath - Path to the Solidity file.
+     * @returns {Object} An object containing extracted parameters.
+     */
     const content = fs.readFileSync(filePath, 'utf8');
     console.log(`Parsing file: ${filePath}`);
     const params = {};
 
     try {
-        params.sender = account;
+        params.sender = account; // Use the pre-defined account as sender
         if (!ethers.utils.isAddress(params.sender)) {
             throw new Error(`Invalid sender address: ${params.sender}`);
         }
@@ -90,7 +113,7 @@ function parseSolidityFile(filePath) {
             const segments = [];
             for (let i = 0; i < amountMatches.length; i++) {
                 const amount = parseFloat(amountMatches[i].match(/[\d.]+(?:e\d+)?/)[0]);
-                const exponent = parseFloat(exponentMatches[i].match(/[\d.]+(?:e\d+)?/)[0])/2;
+                const exponent = parseFloat(exponentMatches[i].match(/[\d.]+(?:e\d+)?/)[0]) / 2;
                 const milestone = parseInt(milestoneMatches[i].match(/\d+/)[0]);
                 segments.push(new LockupDynamicSegment(amount, exponent, milestone));
                 console.log(`Found segment ${i}: amount=${amount}, exponent=${exponent}, milestone=${milestone}`);
@@ -110,6 +133,11 @@ function parseSolidityFile(filePath) {
 
 // Function to create batch of CreateWithMilestones objects
 function createBatchFromFiles(files) {
+    /**
+     * Creates a batch of LockupDynamicCreateWithMilestones objects from a list of Solidity files.
+     * @param {Array<string>} files - List of paths to Solidity files.
+     * @returns {Array<LockupDynamicCreateWithMilestones>} A list of LockupDynamicCreateWithMilestones objects.
+     */
     const batch = [];
     for (const filePath of files) {
         try {
@@ -166,6 +194,12 @@ if (contract.functions.createWithMilestones) {
 
 // Function to call createWithMilestones
 async function callCreateWithMilestones(batch, contract) {
+    /**
+     * Calls the createWithMilestones function on the contract with the given batch of parameters.
+     * @param {Array<LockupDynamicCreateWithMilestones>} batch - The batch of parameters.
+     * @param {ethers.Contract} contract - The instantiated contract object.
+     * @returns {Object} The transaction receipt.
+     */
     const wallet = new ethers.Wallet(privateKey, provider);
 
     // Prepare batch data

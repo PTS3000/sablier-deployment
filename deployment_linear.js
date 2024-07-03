@@ -4,6 +4,12 @@ const { ethers } = require('ethers');
 
 // Define the structure for Batch.CreateWithRange
 class LockupLinearRange {
+    /**
+     * Creates an instance of LockupLinearRange.
+     * @param {number} start - The start time in Unix timestamp.
+     * @param {number} cliff - The cliff time in Unix timestamp.
+     * @param {number} end - The end time in Unix timestamp.
+     */
     constructor(start, cliff, end) {
         this.start = start;
         this.cliff = cliff;
@@ -12,6 +18,16 @@ class LockupLinearRange {
 }
 
 class BatchCreateWithRange {
+    /**
+     * Creates an instance of BatchCreateWithRange.
+     * @param {string} sender - The address of the sender.
+     * @param {string} recipient - The address of the recipient.
+     * @param {number} totalAmount - The total amount to be locked up.
+     * @param {string} asset - The address of the asset.
+     * @param {boolean} cancelable - Whether the contract is cancelable.
+     * @param {boolean} transferable - Whether the contract is transferable.
+     * @param {LockupLinearRange} range - The range object containing start, cliff, and end times.
+     */
     constructor(sender, recipient, totalAmount, asset, cancelable, transferable, range) {
         this.sender = sender;
         this.recipient = recipient;
@@ -29,6 +45,11 @@ const contractAddress = '0x94E596EEd73b4e3171c067f05A87AB0268cA993c';
 
 // Function to parse Solidity file and extract parameters
 function parseSolidityFile(filePath) {
+    /**
+     * Parses a Solidity file to extract contract parameters.
+     * @param {string} filePath - Path to the Solidity file.
+     * @returns {Object} An object containing extracted parameters.
+     */
     const content = fs.readFileSync(filePath, 'utf8');
     console.log(`Parsing file: ${filePath}`);
     const params = {};
@@ -97,6 +118,11 @@ function parseSolidityFile(filePath) {
 
 // Function to create batch of CreateWithRange objects
 function createBatchFromFiles(files) {
+    /**
+     * Creates a batch of BatchCreateWithRange objects from a list of Solidity files.
+     * @param {Array<string>} files - List of paths to Solidity files.
+     * @returns {Array<BatchCreateWithRange>} A list of BatchCreateWithRange objects.
+     */
     const batch = [];
     for (const filePath of files) {
         try {
@@ -150,13 +176,19 @@ if (contract.functions.createWithRange) {
 
 // Function to call createWithRange
 async function callCreateWithRange(batch, contract) {
+    /**
+     * Calls the createWithRange function on the contract with the given batch of parameters.
+     * @param {Array<BatchCreateWithRange>} batch - The batch of parameters.
+     * @param {ethers.Contract} contract - The instantiated contract object.
+     * @returns {Object} The transaction receipt.
+     */
     console.log("Initializing wallet...");
     const wallet = new ethers.Wallet(privateKey, provider);
 
     console.log("Preparing batch data...");
     // Prepare batch data
     const batchData = batch.map(item => ({
-        sender: item.sender, // Make sure sender is included
+        sender: item.sender,
         recipient: ethers.utils.getAddress(item.recipient),
         totalAmount: item.totalAmount,
         asset: ethers.utils.getAddress(item.asset),
@@ -217,6 +249,7 @@ async function callCreateWithRange(batch, contract) {
     }
 }
 
+// Call the function to create the range
 callCreateWithRange(batch, contract).then(receipt => {
     console.log(`Transaction receipt: ${JSON.stringify(receipt)}`);
 }).catch(error => {
